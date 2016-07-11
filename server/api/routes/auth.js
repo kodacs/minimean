@@ -19,12 +19,12 @@ router.route('/')
         throw err
       }
       if (!user) {
-        res.json({ success: false, message: 'Authentication failed.' });
+        res.json({ success: false, message: 'Authentication failed.' })
       } else if (user) {
         crypto.pbkdf2(req.body.password, user.salt, 10000, 128, 'sha512', function (err, hash) {
           var hashedPW = hash.toString('hex')
           if (hashedPW != user.passwordHash) {
-            res.json({ success: false, message: 'Authentication failed.' });
+            res.json({ success: false, message: 'Authentication failed.' })
           } else {
             var token = jwt.sign(user, app.get('signingkey'), {
               expiresIn: '15m'
@@ -37,7 +37,7 @@ router.route('/')
 
 //setup default user for initial login; you don't want to be locked out, huh?
 router.route('/setup')
-  .get(function (req, res)) {
+  .get(function (req, res) {
     User.findOne({
       name: "defaultuser"
     }, function (err, user) {
@@ -60,7 +60,7 @@ router.route('/setup')
       } else {
       }
     })
-  }
+  })
 
 
 module.exports = router

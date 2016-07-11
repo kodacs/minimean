@@ -79,5 +79,4 @@ router.route('/setup')
     })
   })
 
-
 module.exports = router

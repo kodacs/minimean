@@ -27,7 +27,7 @@ router.route('/')
             res.json({ success: false, message: 'Authentication failed.' })
           } else {
             var token = jwt.sign(user, app.get('signingkey'), {
-              expiresIn: '15m'
+              expiresIn: '10h'
             })
           }
         })
@@ -58,6 +58,7 @@ router.route('/setup')
           admin: true
         })
       } else {
+        user.name
       }
     })
   })

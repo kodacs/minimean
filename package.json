@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "minimal mean scaffold, with angular2",
   "main": "index.js",
-  "license": "MIT",
+  "license": "ISC",
   "angular-cli": {},
   "config": {
     "port": "8080",

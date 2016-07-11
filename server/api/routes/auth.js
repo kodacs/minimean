@@ -3,6 +3,8 @@ var mongoose = require('mongoose')
 var User = mongoose.model('User')
 var router = express.Router()
 var crypto = require('crypto')
+var jwt = require('jsonwebtoken')
+var signingkey = process.env.npm_package_config_secretkey
 
 //authentication
 router.route('/')
@@ -26,9 +28,10 @@ router.route('/')
           if (hashedPW != user.passwordHash) {
             res.json({ success: false, message: 'Authentication failed.' })
           } else {
-            var token = jwt.sign(user, app.get('signingkey'), {
+            var token = jwt.sign(user, signingkey, {
               expiresIn: '10h'
             })
+            res.json({ success: true, token: token})
           }
         })
       }
@@ -45,7 +48,7 @@ router.route('/setup')
         throw err
       }
       if (!user) {
-        var nick = new User({
+        var user = new User({
           name: 'defaultuser',
           salt: 'Y2SXrtUvGN4tU3UUEjXOKN0qLD50j3vbYh0QPYYsaFSvSEYDvgo8LizgpYqmCMcR9k'
            + '+BFWfD/9P5McvDv84ihWVhe5DG9pPI3sqiJ+shcVCjmAyMlI4VjoX76Vrxfl+wFWkRkpV'
@@ -56,6 +59,15 @@ router.route('/setup')
            + '6e5e7aef41487ea7c037deff02dbe8967e7e0194e662c6140a8b904afd6916651b0ae'
            + '965f9c67381cf709dd0774a1b1b29b5212102129942ef73ab825efd81347',
           admin: true
+        })
+        user.save(function(err){
+          if (err) {
+            res.send(err)
+          } else {
+            res.json({
+              message: "INITALIZED!!!"
+            })
+          }
         })
       } else {
         user.salt = 'Y2SXrtUvGN4tU3UUEjXOKN0qLD50j3vbYh0QPYYsaFSvSEYDvgo8LizgpYqmCMcR9k'
@@ -71,7 +83,7 @@ router.route('/setup')
             res.send(err)
           } else {
             res.json({
-              message: "RESET!!!"
+              message: "RESETED!!!"
             })
           }
         })

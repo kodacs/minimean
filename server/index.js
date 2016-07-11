@@ -30,7 +30,5 @@ var user = require('./api/routes/user.js')
 app.use('/api/auth', auth)
 app.use('/api/user', user)
 
-
-
 app.listen(port);
 console.log('Magic happens at http://localhost:' + port)

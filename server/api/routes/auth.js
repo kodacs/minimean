@@ -8,11 +8,13 @@ var signingkey = process.env.npm_package_config_secretkey
 
 //authentication
 router.route('/')
+//unused, but I like to keep it. ^_^ for you know... testing reasons.
   .get(function (req, res) {
     res.json({
       "message": "auth"
     })
   })
+//actual login, token
   .post(function (req, res) {
     User.findOne({
       name: req.body.name
@@ -23,6 +25,7 @@ router.route('/')
       if (!user) {
         res.json({ success: false, message: 'Authentication failed.' })
       } else if (user) {
+//crypto... "is almost orgasmic" https://youtu.be/M3iOROuTuMA?t=23s
         crypto.pbkdf2(req.body.password, user.salt, 10000, 128, 'sha512', function (err, hash) {
           var hashedPW = hash.toString('hex')
           if (hashedPW != user.passwordHash) {
@@ -38,7 +41,7 @@ router.route('/')
     })
   })
 
-//setup default user for initial login; you don't want to be locked out, huh?
+//setup route default user for initial login; you don't want to be locked out, huh?
 router.route('/setup')
   .get(function (req, res) {
     User.findOne({
@@ -47,7 +50,7 @@ router.route('/setup')
       if (err) {
         throw err
       }
-      if (!user) {
+      if (!user) { //if there isn't a defaultuser we create it.
         var user = new User({
           name: 'defaultuser',
           salt: 'Y2SXrtUvGN4tU3UUEjXOKN0qLD50j3vbYh0QPYYsaFSvSEYDvgo8LizgpYqmCMcR9k'
@@ -69,7 +72,7 @@ router.route('/setup')
             })
           }
         })
-      } else {
+      } else { //if there exists a defaultuser we resetting its PW
         user.salt = 'Y2SXrtUvGN4tU3UUEjXOKN0qLD50j3vbYh0QPYYsaFSvSEYDvgo8LizgpYqmCMcR9k'
                + '+BFWfD/9P5McvDv84ihWVhe5DG9pPI3sqiJ+shcVCjmAyMlI4VjoX76Vrxfl+wFWkRkpV'
                + 'w4CUiSdXyt9BsHUfmYDuSeOKY2YvqQf0hN2Q='

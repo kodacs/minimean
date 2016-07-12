@@ -13,6 +13,8 @@
   "scripts": {
     "start": "node server/index.js",
     "serve": "ng serve",
+    "tsc": "cd src; tsc",
+    "tsc:w": "cd src; tsc -w",
     "postinstall": "typings install",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",

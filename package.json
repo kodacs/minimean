@@ -8,7 +8,8 @@
   "config": {
     "port": "8080",
     "database": "mongodb://localhost/minimean",
-    "secretkey": "batmanrobinjokersupermanflashmartianmanhuntergreenlanternwonderwoman"
+    "secretkey": "batmanrobinjokersupermanflashmartianmanhuntergreenlanternwonderwoman",
+    "//": "yup, that is an 8 character long pw"
   },
   "scripts": {
     "start": "node server/index.js",

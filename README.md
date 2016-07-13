@@ -24,3 +24,15 @@ dependency hell.
     curl -i -XPOST http://localhost:8080/api/auth -H "Content-Type:application/json" -d '{"name":"defaultuser","password":"reparetekmogyoro"}'
     #test protected route
     curl -i -XGET http://localhost:8080/api/user -H "Content-Type:application/json" -H "x-access-token: <token>"
+
+### Thanks and learning material
+
+ - https://scotch.io/tutorials/the-ins-and-outs-of-token-based-authentication
+ - https://scotch.io/tutorials/the-anatomy-of-a-json-web-token
+ - https://scotch.io/tutorials/learn-to-use-the-new-router-in-expressjs-4
+ - https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
+ - https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
+ - https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
+ - https://github.com/vladotesanovic/angular2-express-starter
+ - https://scotch.io/tutorials/route-middleware-to-check-if-a-user-is-authenticated-in-node-js
+ - http://blog.thoughtram.io/angular/2016/06/14/routing-in-angular-2-revisited.html

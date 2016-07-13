@@ -23,7 +23,7 @@ app.use(bodyParser.json())
 app.use(logger(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'))
 app.set('signingkey', process.env.npm_package_config_secretkey)
 
-//
+//API: models, routes
 var userModel = require('./api/models/user-model.js')
 var auth = require('./api/routes/auth.js')
 var user = require('./api/routes/user.js')

@@ -1,7 +1,7 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode, provide, Component } from '@angular/core';
 import { RouterConfig, provideRouter, ROUTER_DIRECTIVES } from '@angular/router';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppComponent, HomeComponent, environment } from './app/';
 
 @Component({
@@ -41,6 +41,6 @@ const routes: RouterConfig = [
 // bootstrap(AppComponent);
 bootstrap(AppRouter, [
   provideRouter(routes),
-  provide(LocationStrategy, {useClass: HashLocationStrategy})
+  provide(LocationStrategy, {useClass: PathLocationStrategy})
 ]);
 

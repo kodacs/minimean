@@ -36,3 +36,5 @@ dependency hell.
  - https://github.com/vladotesanovic/angular2-express-starter
  - https://scotch.io/tutorials/route-middleware-to-check-if-a-user-is-authenticated-in-node-js
  - http://blog.thoughtram.io/angular/2016/06/14/routing-in-angular-2-revisited.html
+ - https://medium.com/@blacksonic86/angular-2-authentication-revisited-611bf7373bf9
+ - https://medium.com/front-end-hacking/getting-started-using-angular-material-2-in-an-angular-2-angular-cli-application-bbeecdf6bfe2

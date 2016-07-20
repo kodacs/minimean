@@ -13,7 +13,7 @@ import { AppComponent, HomeComponent, environment } from './app/';
 <a>Navigation:</a>
 <ul>
 <li><a [routerLink]="['home']">Home</a></li>
-<li><a [routerLink]="['app']">About</a></li>
+<li><a [routerLink]="['app']">App</a></li>
 </ul>
 </nav>
 <router-outlet></router-outlet>
@@ -41,6 +41,6 @@ const routes: RouterConfig = [
 // bootstrap(AppComponent);
 bootstrap(AppRouter, [
   provideRouter(routes),
-  provide(LocationStrategy, {useClass: PathLocationStrategy})
+  provide(LocationStrategy, {useClass: HashLocationStrategy})
 ]);
 

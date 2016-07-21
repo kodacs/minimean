@@ -1,12 +1,16 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
-import { enableProdMode, provide, Component } from '@angular/core';
+import { enableProdMode, provide, Component, ViewEncapsulation } from '@angular/core';
 import { RouterConfig, provideRouter, ROUTER_DIRECTIVES } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppComponent, HomeComponent, environment } from './app/';
-import {MdButton} from '@angular2-material/button/button';
-import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav/sidenav';
-import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
-import {MdToolbar} from '@angular2-material/toolbar/toolbar';
+import { MdButton } from '@angular2-material/button/button';
+import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav/sidenav';
+import { MD_LIST_DIRECTIVES } from '@angular2-material/list/list';
+import { MdToolbar } from '@angular2-material/toolbar/toolbar';
+import { MdIcon } from '@angular2-material/icon/icon';
+import { HTTP_PROVIDERS } from '@angular/http';
+import { MdIconRegistry } from '@angular2-material/icon/icon-registry';
+
 
 @Component({
   selector: 'router-app',
@@ -15,8 +19,11 @@ import {MdToolbar} from '@angular2-material/toolbar/toolbar';
     MdButton,
     MD_SIDENAV_DIRECTIVES,
     MD_LIST_DIRECTIVES,
-    MdToolbar
+    MdToolbar,
+    MdIcon
     ],
+    encapsulation: ViewEncapsulation.None,
+    viewProviders: [MdIconRegistry],
   template: `
 
 <md-sidenav-layout fullscreen>
@@ -29,8 +36,8 @@ import {MdToolbar} from '@angular2-material/toolbar/toolbar';
   </md-sidenav>
   <div>
     <md-toolbar color="accent">
-      <button (click)="start.open()">
-        <button class="md-24" >menu</button>
+      <button md-icon-button (click)="start.open()">
+        <md-icon class="md-24" >menu</md-icon>
       </button>
       <div>
         <h1> not very sample</h1>
@@ -42,14 +49,14 @@ import {MdToolbar} from '@angular2-material/toolbar/toolbar';
     </div>
   </div>
 </md-sidenav-layout>
-
-
-
   `
 })
 
-class AppRouter {
-
+export class AppRouter {
+  constructor(mdIconRegistry: MdIconRegistry){
+    mdIconRegistry
+//            .addSvgIconSetInNamespace('core', 'fonts/core-icon-set.svg')
+  }
 }
 
 if (environment.production) {
@@ -68,6 +75,8 @@ const routes: RouterConfig = [
 // bootstrap(AppComponent);
 bootstrap(AppRouter, [
   provideRouter(routes),
-  provide(LocationStrategy, {useClass: HashLocationStrategy})
+  provide(LocationStrategy, {useClass: HashLocationStrategy}),
+  HTTP_PROVIDERS,
+  MdIconRegistry
 ]);
 

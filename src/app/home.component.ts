@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'app',
+  selector: 'home',
   template: '{{title}}'
 })
-export class AppComponent {
-  title = 'app works!';
+export class HomeComponent {
+  title = 'home works!';
 }

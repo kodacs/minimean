@@ -1,7 +1,7 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode, provide, Component, ViewEncapsulation } from '@angular/core';
 import { RouterConfig, provideRouter, ROUTER_DIRECTIVES } from '@angular/router';
-import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent, HomeComponent, environment } from './app/';
 import { MdButton } from '@angular2-material/button/button';
 import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav/sidenav';
@@ -52,9 +52,9 @@ import { MdIconRegistry } from '@angular2-material/icon/icon-registry';
   `
 })
 
-export class AppRouter {
-  constructor(mdIconRegistry: MdIconRegistry){
-    mdIconRegistry
+export class AppRouterComponent {
+  constructor(mdIconRegistry: MdIconRegistry) {
+    mdIconRegistry;
 //            .addSvgIconSetInNamespace('core', 'fonts/core-icon-set.svg')
   }
 }
@@ -73,7 +73,7 @@ const routes: RouterConfig = [
 
 
 // bootstrap(AppComponent);
-bootstrap(AppRouter, [
+bootstrap(AppRouterComponent, [
   provideRouter(routes),
   provide(LocationStrategy, {useClass: HashLocationStrategy}),
   HTTP_PROVIDERS,

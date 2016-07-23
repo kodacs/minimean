@@ -22,7 +22,7 @@ import { MdIconRegistry } from '@angular2-material/icon/icon-registry';
   templateUrl: 'app/main.html'
 })
 
-export class AppRouterComponent {
+export class RouterComponent {
   constructor(mdIconRegistry: MdIconRegistry) {
     mdIconRegistry;
 //            .addSvgIconSetInNamespace('core', 'fonts/core-icon-set.svg')

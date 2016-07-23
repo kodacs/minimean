@@ -14,7 +14,7 @@ const map: any = {
 const packages: any = {
 };
 
-const materialPkgs:string[] = [
+const materialPkgs: string[] = [
   'core',
   'button',
   'sidenav',

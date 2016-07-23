@@ -15,6 +15,7 @@
     "start": "node server/index.js",
     "serve": "ng serve",
     "build": "ng build",
+    "rebuild": "ng build",
     "tsc": "cd src; tsc",
     "tsc:w": "cd src; tsc -w",
     "postinstall": "typings install",
@@ -76,6 +77,6 @@
     "ts-node": "0.5.5",
     "tslint": "3.11.0",
     "typescript": "1.8.10",
-    "typings": "1.3.1"
+    "typings": "0.8.1"
   }
 }

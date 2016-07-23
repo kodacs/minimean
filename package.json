@@ -56,6 +56,7 @@
     "es6-shim": "0.35.1",
     "express": "^4.14.0",
     "jsonwebtoken": "^7.1.6",
+    "material-design-icons": "^2.2.3",
     "mongoose": "^4.5.5",
     "morgan": "^1.7.0",
     "reflect-metadata": "0.1.3",

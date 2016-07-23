@@ -12,10 +12,8 @@
     "//": "yup, that is an 8 character long pw"
   },
   "scripts": {
-    "start": "node server/index.js",
-    "serve": "ng serve",
+    "start": "ng build; node server/index.js",
     "build": "ng build",
-    "rebuild": "ng build",
     "tsc": "cd src; tsc",
     "tsc:w": "cd src; tsc -w",
     "postinstall": "typings install",

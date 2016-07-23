@@ -10,6 +10,7 @@ import { MD_BUTTON_DIRECTIVES } from '@angular2-material/button/button';
   <button md-raised-button color="primary">this is a magical button</button>
   <h2>Basic Request</h2>
 <button type="button" (click)="makeRequest()">Make Request</button>
+<button type="button" (click)="makePost()">Make Post</button>
 <div *ngIf="loading">loading...</div>
 <pre>{{data | json}}</pre>
   `
@@ -32,5 +33,19 @@ export class LoginComponent {
           this.loading = false;
         });
 
+  }
+  makePost(): void {
+    this.loading = true;
+    this.http.post(
+      'http://jsonplaceholder.typicode.com/posts',
+      JSON.stringify({
+        body: 'bar',
+        title: 'foo',
+        userId: 1
+      }))
+      .subscribe((res: Response) => {
+        this.data = res.json();
+        this.loading = false;
+      })
   }
 }

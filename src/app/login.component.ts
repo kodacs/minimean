@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { MD_BUTTON_DIRECTIVES } from '@angular2-material/button/button';
 
 @Component({
@@ -11,10 +11,13 @@ import { MD_BUTTON_DIRECTIVES } from '@angular2-material/button/button';
   <h2>Basic Request</h2>
 <button type="button" (click)="makeRequest()">Make Request</button>
 <button type="button" (click)="makePost()">Make Post</button>
+<button type="button" (click)="authCheck()">Check</button>
+<button type="button" (click)="logOut()">Logout</button>
 <div *ngIf="loading">loading...</div>
 <pre>{{data | json}}</pre>
   `
 })
+
 
 export class LoginComponent {
   title = 'login works!';
@@ -25,9 +28,11 @@ export class LoginComponent {
 
   }
 
+
+
   makeRequest(): void {
     this.loading = true;
-      this.http.request('http://jsonplaceholder.typicode.com/posts/1')
+      this.http.request('/api/auth/setup')
         .subscribe((res: Response) => {
           this.data = res.json();
           this.loading = false;
@@ -35,17 +40,27 @@ export class LoginComponent {
 
   }
   makePost(): void {
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let payload = JSON.stringify({
+      name: '1',
+      password: '1'
+    });
+
     this.loading = true;
-    this.http.post(
-      'http://jsonplaceholder.typicode.com/posts',
-      JSON.stringify({
-        body: 'bar',
-        title: 'foo',
-        userId: 1
-      }))
+    this.http.post('/api/auth', payload, {headers: headers})
       .subscribe((res: Response) => {
         this.data = res.json();
+        localStorage.setItem('minimean-token', res.json().token);
         this.loading = false;
-      })
+      });
+  }
+  authCheck(): void {
+    this.data = localStorage.getItem('minimean-token');
+  }
+  logOut(): void {
+    localStorage.removeItem('minimean-token');
   }
 }

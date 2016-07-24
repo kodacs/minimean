@@ -6,13 +6,27 @@ var crypto = require('crypto')
 var jwt = require('jsonwebtoken')
 var signingkey = process.env.npm_package_config_secretkey
 
+
 //authentication
 router.route('/')
-//unused, but I like to keep it. ^_^ for you know... testing reasons.
+  // check all the tokens!
   .get(function (req, res) {
-    res.json({
-      "message": "auth"
-    })
+    var token = req.body.token ||
+                req.query.token ||
+                req.headers['x-access-token']
+    if (token) {
+      jwt.verify(token, signingkey, function (err, decoded) {
+        if (err) { //bad token
+          res.json({ authenticated: false, message: 'Invalid token.' })
+        } else { //valid, go on, then return some user data
+          res.send( JSON.stringify({'authenticated': true,
+                                    'name': decoded._doc.name,
+                                    'admin' : decoded._doc.admin}))
+        }
+      })
+    } else { //without token :(
+      res.json({ authenticated: false, message: 'Missing token.' })
+    }
   })
 //actual login, token
   .post(function (req, res) {

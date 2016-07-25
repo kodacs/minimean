@@ -5,10 +5,10 @@ import { Http, Response, Headers } from '@angular/http';
 
 export class AuthService {
   data: Object;
- // private loggedIn = false;
+  loggedIn = false;
 
   constructor(public http: Http) {
-//    this.loggedIn = !!localStorage.getItem('minimean-token');
+    this.loggedIn = !!localStorage.getItem('minimean-token');
   }
   resetFirstAdmin() {
     this.http.request('/api/auth/setup')
@@ -39,7 +39,7 @@ export class AuthService {
     this.http.request('/api/auth')
       .subscribe((res: Response) => {
         this.data = res.json();
-        return this.data;
+        this.loggedIn = res.json().authenticated;
       });
   }
   logOut() {

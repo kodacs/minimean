@@ -9,8 +9,7 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService) {}
 
   canActivate() {
-    console.log('gard ' + this.authService.authCheck());
-    if (this.authService.authCheck()) { return true; }
-    return false;
+    console.log('gard ' + this.authService.isLoggedIn());
+    return this.authService.isLoggedIn();
   }
 }

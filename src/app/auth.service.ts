@@ -5,10 +5,9 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 export class AuthService {
   data: Object;
-  loggedIn = false;
+  isLoggedIn = false;
 
   constructor(public http: Http) {
-    this.loggedIn = !!localStorage.getItem('minimean-token');
   }
   resetFirstAdmin() {
     this.http.request('/api/auth/setup')
@@ -30,24 +29,33 @@ export class AuthService {
         this.data = res.json();
         localStorage.setItem('minimean-token', res.json().token);
         console.log(this.data);
+        this.authCheck();
         return this.data;
       });
   }
 
   authCheck(): any {
-//    let headers = new Headers();
-//    headers.append('Content-Type', 'application/json');
-//    headers.append('x-access-token', localStorage.getItem('minimean-token'));
-//    this.data = localStorage.getItem('minimean-token');
     this.http.request('/api/auth', new RequestOptions({
-      headers: new Headers({'x-access-token': localStorage.getItem('minimean-token'), 'Content-Type': 'application/json'})
+      headers: new Headers({'x-access-token': localStorage.getItem('minimean-token'),
+                            'Content-Type': 'application/json'})
     }))
       .subscribe((res: Response) => {
         this.data = res.json();
-        this.loggedIn = res.json().authenticated;
+        this.isLoggedIn = res.json().authenticated;
       });
+      return this.isLoggedIn;
   }
+//  isLoggedIn(): any {
+  //   this.http.request('/api/auth', new RequestOptions({
+  //     headers: new Headers({'x-access-token': localStorage.getItem('minimean-token'),
+  //                           'Content-Type': 'application/json'})
+  //   }))
+  //     .subscribe((res: Response) => {
+  //       return res.json().authenticate;
+  //     });
+  // }
   logOut() {
     localStorage.removeItem('minimean-token');
+    this.authCheck();
   }
 }

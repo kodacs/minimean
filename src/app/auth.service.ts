@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
 
@@ -35,8 +35,13 @@ export class AuthService {
   }
 
   authCheck(): any {
+//    let headers = new Headers();
+//    headers.append('Content-Type', 'application/json');
+//    headers.append('x-access-token', localStorage.getItem('minimean-token'));
 //    this.data = localStorage.getItem('minimean-token');
-    this.http.request('/api/auth')
+    this.http.request('/api/auth', new RequestOptions({
+      headers: new Headers({'x-access-token': localStorage.getItem('minimean-token'), 'Content-Type': 'application/json'})
+    }))
       .subscribe((res: Response) => {
         this.data = res.json();
         this.loggedIn = res.json().authenticated;

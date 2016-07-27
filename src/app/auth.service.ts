@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 
 export class AuthService {
   data: Object;
-//  isLoggedIn = false;
 
   constructor(public http: Http) {
   }
@@ -48,33 +47,23 @@ export class AuthService {
       console.log('asyncauth ' + this.isLoggedIn);
       return this.isLoggedIn;
   }
-//  isLoggedIn(): any {
-  //   this.http.request('/api/auth', new RequestOptions({
-  //     headers: new Headers({'x-access-token': localStorage.getItem('minimean-token'),
-  //                           'Content-Type': 'application/json'})
-  //   }))
-  //     .subscribe((res: Response) => {
-  //       return res.json().authenticate;
-  //     });
-  // }
   isLoggedIn(): Observable<boolean> | boolean {
     let obs;
-
     try {
-        obs = this.http.request('/api/auth', new RequestOptions({
-      headers: new Headers({'x-access-token': localStorage.getItem('minimean-token'),
-                            'Content-Type': 'application/json'})
-    }))
-            .map(result => result.json())
-            .map(resultJson => (resultJson && resultJson.authenticated));
+      obs = this.http.request('/api/auth', new RequestOptions({
+        headers: new Headers({
+          'x-access-token': localStorage.getItem('minimean-token'),
+          'Content-Type': 'application/json'
+        })
+      }))
+        .map(result => result.json())
+        .map(resultJson => (resultJson && resultJson.authenticated));
 
     } catch (err) {
-        obs = Observable.of(false);
+      obs = Observable.of(false);
     }
     return obs;
-}
-
-
+  }
   logOut() {
     localStorage.removeItem('minimean-token');
     this.authCheck();

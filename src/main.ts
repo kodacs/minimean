@@ -6,7 +6,7 @@ import { AppComponent, LoginComponent, RouterComponent, environment } from './ap
 import { HTTP_PROVIDERS } from '@angular/http';
 import { MdIconRegistry } from '@angular2-material/icon/icon-registry';
 import { AuthService } from './app';
-import { AuthGuard } from './app/auth.guard';
+import { AuthGuard } from './app';
 
 
 if (environment.production) {

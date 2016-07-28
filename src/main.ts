@@ -7,6 +7,7 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { MdIconRegistry } from '@angular2-material/icon/icon-registry';
 import { AuthService } from './app';
 import { AuthGuard } from './app';
+//import { provideForms } from '@angular/forms';
 
 
 if (environment.production) {
@@ -25,6 +26,7 @@ bootstrap(RouterComponent, [
   provide(LocationStrategy, { useClass: HashLocationStrategy }),
   AuthGuard,
   AuthService,
+//  provideForms,
   HTTP_PROVIDERS,
   MdIconRegistry
 ]);

@@ -34,6 +34,24 @@ export class AuthService {
       });
   }
 
+  userLogin(username, password): any {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let payload = JSON.stringify({
+      'name': username,
+      'password': password
+    });
+    this.http.post('/api/auth', payload, { headers: headers })
+      .subscribe((res: Response) => {
+        this.data = res.json();
+        localStorage.setItem('minimean-token', res.json().token);
+        console.log(this.data);
+        this.authCheck();
+        return this.data;
+      });
+  }
+
   authCheck(): any {
     this.http.request('/api/auth', new RequestOptions({
       headers: new Headers({'x-access-token': localStorage.getItem('minimean-token'),

@@ -1,0 +1,25 @@
+{{title}}
+  <button md-raised-button color="primary">this is a magical button</button>
+  <h2>auth E and auth O</h2>
+<button type="button" (click)="authSrv.resetFirstAdmin()">Admin retesz</button>
+<button type="button" (click)="authSrv.mockLogin()">MockLogin</button>
+<button type="button" (click)="authSrv.authCheck()">Check</button>
+<button type="button" (click)="authSrv.logOut()">Logout</button>
+<div *ngIf="loading">loading...</div>
+<pre>{{authSrv.data | json}}</pre>
+
+  <form [formGroup]="loginForm" novalidate (ngSubmit)="save(loginForm.value, loginForm.valid)">
+    <div class="form-group">
+      <input type="text" class="form-control" formControlName="username">
+      <input type="password" class="form-control" formControlName="password">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+      loginForm details:-
+      <pre>Is loginForm valid?: <br>{{loginForm.valid | json}}</pre>
+      <pre>Is loginForm submitted?: <br>{{submitted | json}}</pre>
+      <pre>loginForm value: <br>{{loginForm.value | json}}</pre>
+      Form changes:
+    <div *ngFor="let event of events" class="margin-20">
+      <pre> {{ event | json }} </pre>
+    </div>
+  </form>

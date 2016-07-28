@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { MD_BUTTON_DIRECTIVES } from '@angular2-material/button/button';
 import { AuthService } from './auth.service';
 import { FormGroup, FormControl, REACTIVE_FORM_DIRECTIVES, FormBuilder, Validators } from '@angular/forms';
@@ -17,50 +17,82 @@ import { FormGroup, FormControl, REACTIVE_FORM_DIRECTIVES, FormBuilder, Validato
 <button type="button" (click)="authSrv.logOut()">Logout</button>
 <div *ngIf="loading">loading...</div>
 <pre>{{authSrv.data | json}}</pre>
-<form [formGroup]="registerForm">
-  <label>Firstname:</label>
-  <input type="text" formControlName="firstname">
 
-  <label>Lastname:</label>
-  <input type="text" formControlName="lastname">
+  <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm.value, myForm.valid)">
+    <div class="form-group">
+      <label for="">Name</label>
+      <input type="text" class="form-control" formControlName="name">
+      <small [hidden]="myForm.controls.name.valid || (myForm.controls.name.pristine && !submitted)" class="text-danger">
+            Name is required (minimum 5 characters).
+          </small>
+      <!--<pre class="margin-20">{{ myForm.controls.name.errors | json }}</pre>-->
+    </div>
+    <div class="form-group" formGroupName="address">
+      <label for="">Address</label>
+      <input type="text" class="form-control" formControlName="street">
+      <small [hidden]="myForm.controls.address.controls.street.valid || (myForm.controls.address.controls.street.pristine && !submitted)" class="text-danger">
+            Street required
+          </small>
+    </div>
+    <div class="form-group" formGroupName="address">
+      <label for="">Postcode</label>
+      <input type="text" class="form-control" formControlName="postcode">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+    <div class="margin-20">
+      <div>myForm details:-</div>
+      <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
+      <pre>Is myForm submitted?: <br>{{submitted | json}}</pre>
+      <pre>myForm value: <br>{{myForm.value | json}}</pre>
+    </div>
+    <div class="margin-20">
+      Form changes:
+    </div>
+    <div *ngFor="let event of events" class="margin-20">
+      <pre> {{ event | json }} </pre>
+    </div>
+  </form>
+`
 
-  <label>Street:</label>
-  <input type="text" formControlName="street">
-
-  <label>Zip:</label>
-  <input type="text" formControlName="zip">
-
-  <label>City:</label>
-  <input type="text" formControlName="city">
-
-  <button type="submit">Submit</button>
-</form>`
-
-// <input type="text" [formControl]="name" />`
 })
 
 export class LoginComponent implements OnInit {
   title = 'login works!';
 
-ngOnInit() {
-  let registerForm = this.formBuilder.group({
-    firstname: ['', Validators.required],
-    lastname: ['', Validators.required],
-    address: this.formBuilder.group({
-      street: [],
-      zip: [],
-      city: []
-    })
-  });
-}
+  public myForm: FormGroup;
+  public submitted: boolean;
+  public events: any[] = [];
 
+  ngOnInit() {
 
-//  let loginForm = new FormGroup ({
-//  loginUser: new FormControl(''),
-//  passwordUser: new FormControl('')
-//  });
+ this.myForm = new FormGroup({
+        name: new FormControl('', [<any>Validators.required, <any>Validators.minLength(5)]),
+        address: new FormGroup({
+            street: new FormControl('', <any>Validators.required),
+            postcode: new FormControl('8000')
+        })
+    });
 
-  constructor(private authSrv: AuthService, private formBuilder: FormBuilder) {
   }
 
+
+  constructor(private authSrv: AuthService, private _fb: FormBuilder) {
+  }
+
+  save(model: User, isValid: boolean) {
+        this.submitted = true; // set form submit to true
+
+        // check if model is valid
+        // if valid, call API to save customer
+        console.log(model, isValid);
+    }
+
+}
+
+export interface User {
+    name: string; // required with minimum 5 chracters
+    address?: {
+        street?: string; // required
+        postcode?: string;
+    }
 }

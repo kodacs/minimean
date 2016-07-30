@@ -1,6 +1,6 @@
 {{title}}
-  <button md-raised-button color="primary">this is a magical button</button>
-  <h2>auth E and auth O</h2>
+<button md-raised-button color="primary">this is a magical button</button>
+<h2>auth E and auth O</h2>
 <button type="button" (click)="authSrv.resetFirstAdmin()">Admin retesz</button>
 <button type="button" (click)="authSrv.mockLogin()">MockLogin</button>
 <button type="button" (click)="authSrv.authCheck()">Check</button>
@@ -8,45 +8,47 @@
 <div *ngIf="loading">loading...</div>
 <pre>{{authSrv.data | json}}</pre>
 
-  <form [formGroup]="loginForm" novalidate (ngSubmit)="save(loginForm.value, loginForm.valid)">
-    <div class="form-group">
-      <input type="text" class="form-control" formControlName="username">
-      <input type="password" class="form-control" formControlName="password">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-      loginForm details:-
-      <pre>Is loginForm valid?: <br>{{loginForm.valid | json}}</pre>
-      <pre>Is loginForm submitted?: <br>{{submitted | json}}</pre>
-      <pre>loginForm value: <br>{{loginForm.value | json}}</pre>
-      Form changes:
-    <div *ngFor="let event of events" class="margin-20">
-      <pre> {{ event | json }} </pre>
-</div>
+<form [formGroup]="loginForm" novalidate (ngSubmit)="save(loginForm.value, loginForm.valid)">
+  <div class="form-group">
+    <input type="text" class="form-control" formControlName="username">
+    <input type="password" class="form-control" formControlName="password">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button> loginForm details:-
+  <pre>Is loginForm valid?: <br>{{loginForm.valid | json}}</pre>
+  <pre>Is loginForm submitted?: <br>{{submitted | json}}</pre>
+  <pre>loginForm value: <br>{{loginForm.value | json}}</pre>
+  Form changes:
+  <div *ngFor="let event of events" class="margin-20">
+    <pre> {{ event | json }} </pre>
+  </div>
 </form>
 
-<div class="login">
-<md-card>
-  <md-card-content>
+
+<div class="content">
+  <md-card>
     <md-card-title>Login</md-card-title>
-    <form>
-      <table>
-        <tr>
-          <td>
-            <md-input placeholder="Login"></md-input>
-          </td>
-          <td>
-            <md-input placeholder="Password" type="password"></md-input>
-          </td>
-          <md-card-actions>
+    <md-card-content>
+      <form>
+        <table style="width: 100%">
+          <tr>
             <td>
-              <button md-raised-button>Login</button>
+              <md-input style="width: 100%" placeholder="Login"></md-input>
             </td>
-          </md-card-actions>
-        </tr>
-      </table>
-    </form>
-  </md-card-content>
-</md-card>
+          </tr>
+          <tr>
+            <td>
+              <md-input style="width: 100%" placeholder="Password" type="password"></md-input>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <md-card-actions>
+                <button md-raised-button style="width: 100%" color="primary">Login</button>
+              </md-card-actions>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </md-card-content>
+  </md-card>
 </div>
-
-

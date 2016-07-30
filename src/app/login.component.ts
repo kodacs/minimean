@@ -20,10 +20,10 @@ import { FormGroup, FormControl, REACTIVE_FORM_DIRECTIVES, FormBuilder, Validato
   providers: [AuthService],
   templateUrl: './login.component.html',
   styles: [`
-    md-card {
+    .content {
+      padding: 32px;
       width: 50%;
-
-      }
+    }
   `]
 
 })

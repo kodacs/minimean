@@ -21,5 +21,32 @@
       Form changes:
     <div *ngFor="let event of events" class="margin-20">
       <pre> {{ event | json }} </pre>
-    </div>
-  </form>
+</div>
+</form>
+
+<div class="login">
+<md-card>
+  <md-card-content>
+    <md-card-title>Login</md-card-title>
+    <form>
+      <table>
+        <tr>
+          <td>
+            <md-input placeholder="Login"></md-input>
+          </td>
+          <td>
+            <md-input placeholder="Password" type="password"></md-input>
+          </td>
+          <md-card-actions>
+            <td>
+              <button md-raised-button>Login</button>
+            </td>
+          </md-card-actions>
+        </tr>
+      </table>
+    </form>
+  </md-card-content>
+</md-card>
+</div>
+
+

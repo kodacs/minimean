@@ -21,6 +21,8 @@ const materialPkgs: string[] = [
   'toolbar',
   'icon',
   'list',
+  'card',
+  'input',
 ];
 
 materialPkgs.forEach((pkg) => {

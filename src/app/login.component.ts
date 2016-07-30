@@ -1,14 +1,30 @@
 import { Component, OnInit} from '@angular/core';
 import { MD_BUTTON_DIRECTIVES } from '@angular2-material/button/button';
+import { MD_INPUT_DIRECTIVES } from '@angular2-material/input/input';
+import { MdCard, MD_CARD_DIRECTIVES } from '@angular2-material/card/card';
+import { MdToolbar } from '@angular2-material/toolbar/toolbar';
 import { AuthService } from './auth.service';
 import { FormGroup, FormControl, REACTIVE_FORM_DIRECTIVES, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   moduleId: module.id,
   selector: 'login-component',
-  directives: [MD_BUTTON_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+  directives: [
+    MD_BUTTON_DIRECTIVES,
+    REACTIVE_FORM_DIRECTIVES,
+    MD_INPUT_DIRECTIVES,
+    MD_CARD_DIRECTIVES,
+    MdCard,
+    MdToolbar
+    ],
   providers: [AuthService],
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styles: [`
+    md-card {
+      width: 50%;
+
+      }
+  `]
 
 })
 

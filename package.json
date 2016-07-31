@@ -12,8 +12,8 @@
     "//": "yup, that is an 8 character long pw"
   },
   "scripts": {
-    "start": "ng build; node server/index.js",
-    "build": "ng build",
+    "start": "node index.js",
+    "serve": "ng serve",
     "tsc": "cd src; tsc",
     "tsc:w": "cd src; tsc -w",
     "postinstall": "typings install",
@@ -66,7 +66,7 @@
     "zone.js": "0.6.12"
   },
   "devDependencies": {
-    "angular-cli": "1.0.0-beta.10",
+    "angular-cli": "^1.0.0-beta.10",
     "codelyzer": "0.0.20",
     "ember-cli-inject-live-reload": "1.4.0",
     "jasmine-core": "2.4.1",

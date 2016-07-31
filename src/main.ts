@@ -2,23 +2,30 @@ import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode, provide } from '@angular/core';
 import { RouterConfig, provideRouter } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { AppComponent, LoginComponent, RouterComponent, environment } from './app/';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { MdIconRegistry } from '@angular2-material/icon/icon-registry';
-import { AuthService } from './app';
-import { AuthGuard } from './app';
 import { disableDeprecatedForms, provideForms } from '@angular/forms';
 
+
+import {
+  AppComponent,
+  LoginComponent,
+  RouterComponent,
+  TestComponent,
+  environment,
+  AuthService,
+  AuthGuard,
+} from './app/';
 
 if (environment.production) {
   enableProdMode();
 }
 
 const routes: RouterConfig = [
-{ path: '', redirectTo: 'login', terminal: true },
-{ path: 'app', component: AppComponent, canActivate: [AuthGuard] },
+{ path: '', redirectTo: 'login', pathMatch: 'full' },
 { path: 'login', component: LoginComponent },
-{ path: 'contact', redirectTo: 'login' },
+{ path: 'app', component: AppComponent, canActivate: [AuthGuard] },
+{ path: 'test', component: TestComponent },
 ];
 
 bootstrap(RouterComponent, [

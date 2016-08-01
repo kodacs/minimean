@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router } from '@angular/router';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { ROUTER_DIRECTIVES, Router, NavigationStart } from '@angular/router';
 import { MdButton } from '@angular2-material/button/button';
 import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav/sidenav';
 import { MD_LIST_DIRECTIVES } from '@angular2-material/list/list';
@@ -23,18 +23,14 @@ import { AuthService } from './';
   templateUrl: 'app/main.component.html'
 })
 
-export class RouterComponent implements OnInit{
+export class RouterComponent {
 
   constructor(private _authService: AuthService, private _router: Router ) {
-    _router.events.subscribe(event => {
-      console.log('route changed');
-//      if(Event instanceof NavigationStart) {
-        this._authService.authUpdate()
-      }
-//      console.log(event);
-    )};
-
-
-  ngOnInit() {}
+    _router.events
+      .filter(event => event instanceof NavigationStart)
+      .subscribe((event) => {
+        _authService.authUpdate();
+      });
+  }
 
 }

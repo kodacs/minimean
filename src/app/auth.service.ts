@@ -24,7 +24,7 @@ export class AuthService {
     this._http.post('/api/auth', payload, { headers: headers })
       .subscribe((res: Response) => {
         localStorage.setItem('minimean-token', res.json().token);
-        this.authUpdate()
+        this.authUpdate();
         this._router.navigate(['/app']);
       });
   }
@@ -54,11 +54,10 @@ export class AuthService {
       }))
       .map(response => response.json())
       .subscribe(data => {
-        console.log(data.authenticated);
         if (data.authenticated === true) {
           this.isLoggedIn.next(true);
         } else {
-          this.isLoggedIn.next(false);
+          this.logOut();
         }
       });
   }
@@ -69,7 +68,7 @@ export class AuthService {
 
   logOut() {
     localStorage.removeItem('minimean-token');
-    this.authUpdate();
+    this.isLoggedIn.next(false);
     this._router.navigate(['/login']);
   }
 }

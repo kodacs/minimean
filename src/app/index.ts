@@ -6,3 +6,4 @@ export * from './app.component';
 export * from './test/test.component';
 export * from './login.component';
 export * from './user.model';
+export * from './home.component';

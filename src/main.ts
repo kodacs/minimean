@@ -9,6 +9,7 @@ import { disableDeprecatedForms, provideForms } from '@angular/forms';
 
 import {
   AppComponent,
+  HomeComponent,
   LoginComponent,
   RouterComponent,
   TestComponent,
@@ -25,6 +26,7 @@ const routes: RouterConfig = [
 { path: '', redirectTo: 'login', pathMatch: 'full' },
 { path: 'login', component: LoginComponent },
 { path: 'app', component: AppComponent, canActivate: [AuthGuard] },
+{ path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 { path: 'test', component: TestComponent },
 ];
 

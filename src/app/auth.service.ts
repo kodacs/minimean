@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Router } from '@angular/router';
 
@@ -25,11 +27,11 @@ export class AuthService {
       .subscribe((res: Response) => {
         localStorage.setItem('minimean-token', res.json().token);
         this.authUpdate();
-        this._router.navigate(['/app']);
+//        this._router.navigate(['/app']);
       });
   }
 
-  authLoginGuard(): Observable<boolean> | boolean {
+  authLoginGuard(): Observable<boolean> {
     let obs;
     try {
       obs = this._http.request('/api/auth', new RequestOptions({
@@ -57,16 +59,14 @@ export class AuthService {
         if (data.authenticated === true) {
           this.isLoggedIn.next(true);
         } else {
-          this.logOut();
+//          this.logOut();
+          this.isLoggedIn.next(false);
         }
       });
   }
 
   authCheck(): any {
     return this.isLoggedIn;
-  }
-  nonauthCheck(): any {
-    return !this.isLoggedIn;
   }
 
   logOut() {

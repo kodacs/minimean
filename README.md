@@ -38,3 +38,5 @@ dependency hell.
  - http://blog.thoughtram.io/angular/2016/06/14/routing-in-angular-2-revisited.html
  - https://medium.com/@blacksonic86/angular-2-authentication-revisited-611bf7373bf9
  - https://medium.com/front-end-hacking/getting-started-using-angular-material-2-in-an-angular-2-angular-cli-application-bbeecdf6bfe2
+ - https://github.com/blacksonic/angular2-esnext-starter
+ - http://embed.plnkr.co/SF8gsYN1SvmUbkosHjqQ/

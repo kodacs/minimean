@@ -29,7 +29,7 @@ export class AuthService {
       });
   }
 
-  authCheckGuard(): Observable<boolean> | boolean {
+  authLoginGuard(): Observable<boolean> | boolean {
     let obs;
     try {
       obs = this._http.request('/api/auth', new RequestOptions({
@@ -64,6 +64,9 @@ export class AuthService {
 
   authCheck(): any {
     return this.isLoggedIn;
+  }
+  nonauthCheck(): any {
+    return !this.isLoggedIn;
   }
 
   logOut() {

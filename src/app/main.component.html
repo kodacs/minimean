@@ -1,7 +1,9 @@
 <md-sidenav-layout fullscreen>
   <md-sidenav #start>
     <md-nav-list>
+      <div *ngIf="!(_authService.authCheck() | async)">
       <a md-list-item [routerLink]="['login']">Login</a>
+      </div>
       <div *ngIf="_authService.authCheck() | async">
       <a md-list-item [routerLink]="['app']">App</a>
       <a md-list-item [routerLink]="['home']">Home</a>

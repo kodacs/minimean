@@ -40,10 +40,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this._authService.authCheck() === true) {
-      this._router.navigate(['/app']);
-    }
-
     this.loginFormGroup = new FormGroup({
       username: new FormControl(''),
       password: new FormControl('')

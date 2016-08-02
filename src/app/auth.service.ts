@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Router } from '@angular/router';
@@ -11,9 +10,9 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   isLoggedIn = new BehaviorSubject(false);
+  loggedin = false;
 
-  constructor(private _http: Http, private _router: Router) {
-  }
+  constructor(private _http: Http, private _router: Router) { }
 
   userLogin(username, password): any {
     let headers = new Headers();
@@ -31,22 +30,53 @@ export class AuthService {
       });
   }
 
-  authLoginGuard(): Observable<boolean> {
-    let obs;
-    try {
-      obs = this._http.request('/api/auth', new RequestOptions({
-        headers: new Headers({
-          'x-access-token': localStorage.getItem('minimean-token'),
-          'Content-Type': 'application/json'
-        })
-      }))
-        .map(result => result.json())
-        .map(resultJson => (resultJson && resultJson.authenticated));
-    } catch (err) {
-      obs = Observable.of(false);
-    }
-    return obs;
+  authUserGuard(next, state): any {
+    return new Promise((resolve) => {
+      this.check()
+        .subscribe((result) => {
+          console.log(result)
+          if (result) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        });
+    });
   }
+
+  login(username, password) {
+    console.log('login',username,password);
+
+    this._http.post('/api/auth', JSON.stringify({
+      'name': username,
+      'password': password
+    }), new RequestOptions({
+    headers: new Headers({
+      'Content-Type': 'application/json'})
+    }))
+    .map(response => {
+      console.log(JSON.stringify(response.json()));
+      return response.json()
+    })
+    .subscribe(data => {
+      if (data.success === true) {
+        localStorage.setItem('minimean-token', data.token);
+        console.log('jo');
+        this.loggedin = true;
+      } else {
+        this._router.navigate(['/login']);
+        this.loggedin = false;
+        console.log('nemjo');
+      }
+    });
+  }
+  logout() {
+    this.loggedin = false;
+  }
+  check() {
+    return Observable.of(this.loggedin);
+  }
+
 
   authUpdate(): any {
     this._http.request('/api/auth', new RequestOptions({
@@ -57,16 +87,15 @@ export class AuthService {
       .map(response => response.json())
       .subscribe(data => {
         if (data.authenticated === true) {
-          this.isLoggedIn.next(true);
+          this.loggedin = true;
         } else {
 //          this.logOut();
-          this.isLoggedIn.next(false);
+          this.loggedin = false;
         }
       });
   }
 
   authCheck(): any {
-    return this.isLoggedIn;
   }
 
   logOut() {

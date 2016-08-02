@@ -1,10 +1,10 @@
 <md-sidenav-layout fullscreen>
   <md-sidenav #start>
     <md-nav-list>
-      <div *ngIf="!(_authService.authCheck() | async)">
+      <div *ngIf="!(_authService.check() | async)">
       <a md-list-item [routerLink]="['login']">Login</a>
       </div>
-      <div *ngIf="_authService.authCheck() | async">
+      <div *ngIf="_authService.check() | async">
       <a md-list-item [routerLink]="['app']">App</a>
       <a md-list-item [routerLink]="['home']">Home</a>
       </div>
@@ -22,7 +22,7 @@
         <h2>minimean</h2>
       </div>
       <span style="flex: 1 1 auto"></span>
-      <button *ngIf="_authService.authCheck() | async" md-icon-button (click)="_authService.logOut()">
+      <button *ngIf="_authService.check() | async" md-icon-button (click)="_authService.logout()">
         <md-icon class="md-24">exit_to_app</md-icon>
       </button>
     </md-toolbar>

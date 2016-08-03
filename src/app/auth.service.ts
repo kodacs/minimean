@@ -34,7 +34,7 @@ export class AuthService {
     return new Promise((resolve) => {
       this.check()
         .subscribe((result) => {
-          console.log(result)
+          console.log(result);
           if (result) {
             resolve(true);
           } else {
@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   login(username, password) {
-    console.log('login',username,password);
+    console.log('login', username, password);
 
     this._http.post('/api/auth', JSON.stringify({
       'name': username,
@@ -56,7 +56,7 @@ export class AuthService {
     }))
     .map(response => {
       console.log(JSON.stringify(response.json()));
-      return response.json()
+      return response.json();
     })
     .subscribe(data => {
       if (data.success === true) {
@@ -74,6 +74,8 @@ export class AuthService {
     this.loggedin = false;
   }
   check() {
+    console.log(Observable.of(this.loggedin));
+
     return Observable.of(this.loggedin);
   }
 

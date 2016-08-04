@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   isLoggedIn = new BehaviorSubject(false);
+  redirurl = new BehaviorSubject('');
 
   constructor(private _http: Http, private _router: Router) {
   }
@@ -27,12 +28,14 @@ export class AuthService {
       .subscribe((res: Response) => {
         localStorage.setItem('minimean-token', res.json().token);
         this.authUpdate();
-//        this._router.navigate(['/app']);
+        this._router.navigate([this.redirurl.getValue()]);
+        this.redirurl.next('');
       });
   }
 
-  authLoginGuard(): Observable<boolean> {
+  authLoginGuard(redirurl): Observable<boolean> {
     let obs;
+    this.redirurl = redirurl;
     try {
       obs = this._http.request('/api/auth', new RequestOptions({
         headers: new Headers({

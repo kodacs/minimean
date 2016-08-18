@@ -12,17 +12,5 @@
 </head>
 <body>
   <router-app>Loading...</router-app>
-
-    {{#each scripts.polyfills}}
-    <script src="{{.}}"></script>
-    {{/each}}
-    <script>
-      System.import('system-config.js').then(function () {
-        System.import('main');
-      }).catch(console.error.bind(console));
-    </script>
-
-
-
 </body>
 </html>
